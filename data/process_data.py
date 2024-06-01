@@ -48,6 +48,9 @@ def clean_data(df):
     for column in categories:
         categories[column] = categories[column].astype(str).str[-1]
         categories[column] = categories[column].astype(int)
+
+    # Drop observations where any category column has the value 2
+    categories = categories[(categories != 2).all(axis=1)]
     
     # Replace categories column in df with new category columns
     df.drop('categories', axis=1, inplace=True)
